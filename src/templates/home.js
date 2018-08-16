@@ -4,6 +4,7 @@ import Band from '../components/Band/Band';
 import QuoteBox from '../components/Quote/QuoteBox';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
 import WideLayout from '../components/Layouts/WideLayout';
+import ArticleCard from '../components/ArticleCard/ArticleCard';
 import { Row, Column, Container } from '../components/Grid/Grid';
 
 export default class HomeTemplate extends Component {
@@ -27,6 +28,16 @@ export default class HomeTemplate extends Component {
                 {page.acf.quote && (
                     <Band bgColor="#23ab3c">
                         <QuoteBox {...page.acf.quote} iconColor="#23ab3c" />
+                    </Band>
+                )}
+
+                {posts && (
+                    <Band title="Recent Articles">
+                        <Row style={{ marginBottom: '-35px' }}>
+                            {posts.edges.map(post => (
+                                <Column sm="4"><ArticleCard {...post.node} /></Column>
+                            ))}
+                        </Row>
                     </Band>
                 )}
 
@@ -79,6 +90,13 @@ export const query = graphql`
         config: wordpressGatsbyConfig {
             name
             description
+        }
+        posts: allWordpressPost (sort: { fields: [date], order: DESC }, limit: 3) {
+            edges {
+                node {
+                    ...ArticleCard
+                }
+            }
         }
     }
 `

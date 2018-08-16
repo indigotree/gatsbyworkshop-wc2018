@@ -27,6 +27,41 @@ const queryWordPressPages = `
   }
 `
 
+const queryWordPressPosts = `
+  {
+    allWordpressPost (filter: { status: { eq : "publish" } }) {
+      edges {
+        node {
+          id
+          wordpress_id
+          slug
+          template
+        }
+      }
+    }
+  }
+`
+
+const queryWordPressCategories = `
+  {
+    allWordpressCategory {
+      edges {
+        node {
+          id
+          slug
+        }
+      }
+    }
+  }
+`;
+
+
+const pageTemplate = path.resolve(`./src/templates/page.js`)
+const homeTemplate = path.resolve(`./src/templates/home.js`)
+const postTemplate = path.resolve(`./src/templates/post.js`)
+const blogTemplate = path.resolve(`./src/templates/blog.js`)
+const categoryTemplate = path.resolve(`./src/templates/category.js`)
+
 exports.createPages = ({ graphql, boundActionCreators }) => {
 
     let config;
@@ -35,6 +70,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     return new Promise((resolve, reject) => {
         
         graphql(queryWordPressGatsbyConfig)
+
             .then(r => {
                 if (r.errors) {
                     console.log(r.errors);
@@ -55,10 +91,12 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                             path: edge.node.wordpress_id === config.front_page ? '/' : edge.node.slug,
                             component: (
                               () => {
-                                  if (edge.node.wordpress_id === config.front_page) {
-                                      return slash(path.resolve(`./src/templates/home.js`));
+                                  if (edge.node.wordpress_id === config.posts_page) {
+                                      return slash(blogTemplate);
+                                  } else if (edge.node.wordpress_id === config.front_page) {
+                                      return slash(homeTemplate);
                                   }
-                                  return slash(path.resolve(`./src/templates/page.js`));
+                                  return slash(pageTemplate);
                               }
                             )(),
                             context: {
@@ -69,8 +107,46 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                     });
                 })
                 .then(r => {
+                    return graphql(queryWordPressPosts).then(r => {
+                        if (r.errors) {
+                            console.log(r.errors);
+                            reject(r.errors);
+                        }
+                        _.each(r.data.allWordpressPost.edges, edge => {
+                            createPage({
+                                path: edge.node.slug,
+                                component: slash(postTemplate),
+                                context: {
+                                    id: edge.node.id,
+                                    wordpress_id: edge.node.wordpress_id
+                                }
+                            });
+                        });
+                    });
+                })
+                .then(r => {
+                    return graphql(queryWordPressCategories).then(r => {
+                        if (r.errors) {
+                            console.log(r.errors);
+                            reject(r.errors);
+                        }
+                        _.each(r.data.allWordpressCategory.edges, edge => {
+                            createPage({
+                                path: `category/${edge.node.slug}`,
+                                component: slash(categoryTemplate),
+                                context: {
+                                    id: edge.node.id,
+                                    wordpress_posts_page_id: config.posts_page
+                                }
+                            })
+                        });
+                        
+                    });
+
+                })
+                .then(r => {
                     resolve();
-                });
+                })
 
             });
 

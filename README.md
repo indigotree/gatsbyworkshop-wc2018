@@ -1,4 +1,4 @@
-# Gatsby Started - WCBTN Instructions
+# Gatsby Starter - WCBTN Instructions
 
 ## 0. Installation/Setup
 

@@ -1,0 +1,32 @@
+.quote {
+    margin: 0;
+}
+
+.quote > svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 10px;
+}
+
+.quote__body {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.45;
+}
+
+.quote__author {
+    margin-top: 25px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 992px) {
+    .quote > svg {
+        width: 64px;
+        height: 64px;
+    }
+    .quote__body {
+        font-size: 28px;
+    }
+}
+

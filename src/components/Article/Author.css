@@ -1,0 +1,17 @@
+.author {
+    font-style: normal;
+    margin-top: 70px;
+    font-size: 15px;
+}
+
+.author__avatar, .author__name {
+    margin-bottom: 10px;
+}
+
+.author__avatar {
+    border-radius: 50%;
+}
+
+.author__name {
+    font-size: 18px;
+}

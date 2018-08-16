@@ -1,0 +1,16 @@
+.band {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.band__title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 70px;
+}
+
+@media screen and (min-width: 768px) {
+    .band__title {
+        font-size: 48px;
+    }
+}

@@ -1,0 +1,19 @@
+.article-card {
+    margin-bottom: 35px;
+}
+
+.article-card__meta {
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: rgba(0, 0, 0, .5);
+}
+
+.article-card__title {
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+.article-card__figure {
+    margin: 0 0 10px;
+}

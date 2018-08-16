@@ -1,0 +1,48 @@
+
+.image-grid__item {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 22px;
+    line-height: 1.1;
+    display: block;
+    position: relative;
+}
+
+.image-grid__item::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .65) 15%, transparent 65%);
+    background-repeat: repeat-x;
+    background-size: 100% 100%;
+    z-index: 5;
+}
+
+.image-grid__item > span {
+    position: absolute;
+    z-index: 5;
+    display: block;
+    top: 25px;
+    left: 25px;
+}
+
+@media screen and (min-width: 460px) {
+    .image-grid__item {
+        font-size: 32px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .image-grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .image-grid__item {
+        flex: 1 1 50%;
+    }
+}

@@ -1,0 +1,73 @@
+.navbar {
+    margin-left: auto;
+    text-align: right;
+}
+
+.navbar__menu {
+    list-style: none;
+    margin: 0;
+    display: none;
+    padding-left: 0;
+}
+
+.navbar__menu > li > a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar__menu > li > a:hover, .navbar__menu > li > a:focus {
+    color: #00ffff;
+}
+
+.navbar--open {
+    position: fixed;
+    background-color: rgba(74, 20, 144, .85);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.navbar--open .navbar__menu {
+    display: block;
+}
+
+.navbar__button {
+    border: none;
+    background-color: transparent;
+    padding: 6px;
+    color: #ffffff;
+    font-size: 0;
+}
+.navbar__button > svg {
+    width: 32px;
+    height: 32px;
+}
+
+.navbar--open .navbar__button {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar {
+        text-align: inherit;
+    }
+    .navbar__menu {
+        display: block;
+    }
+    .navbar__menu > li {
+        display: inline-block;
+        margin-left: 25px;
+    }
+    .navbar__button {
+        display: none;
+    }
+}

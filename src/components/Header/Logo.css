@@ -1,0 +1,66 @@
+.logo {
+    display: flex;
+    color: #ffffff;
+    text-decoration: none;
+    min-width: 158px;
+    max-height: 44px;
+}
+
+.logo > svg {
+    width: 44px;
+    height: 44px;
+    margin-right: 10px;
+    transition: transform .25s ease;
+}
+
+.logo__text {
+    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform .25s ease;
+}
+
+.logo__text > strong {
+    font-size: 18px;
+}
+.logo__text > span {
+    font-size: 12px;
+    opacity: .65;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: none;
+}
+
+.logo:hover, .logo:focus {
+    text-decoration: none;
+}
+
+.logo:hover > svg, .logo:focus > svg {
+    transform: rotate(180deg) scale(1.1);
+}
+
+.logo:hover .logo__text, .logo:focus .logo__text {
+    transform: translateX(5px);
+}
+
+.logo:hover .logo__text > strong {
+    color: #00ff7a;
+}
+
+.logo > svg path:not([opacity]) {
+    transition: fill .25s ease;
+}
+
+.logo:hover > svg path:not([opacity]) {
+    fill: #00ff7a;
+}
+
+@media screen and (min-width: 768px) {
+    .logo__text > span {
+        display: block;
+    }
+    .logo__text > strong {
+        margin-bottom: 5px;
+    }
+}

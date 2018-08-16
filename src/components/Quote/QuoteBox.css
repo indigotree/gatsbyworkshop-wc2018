@@ -1,0 +1,54 @@
+.quote-box {
+    position: relative;
+    overflow: hidden;
+}
+.quote-box__image {
+    position: absolute;
+    width: 100%;
+}
+
+.quote-box__body {
+    background-color: #ffffff;
+    padding: 25px;
+    position: relative;
+    z-index: 5;
+    margin-top: 150px;
+}
+
+@media screen and (min-width: 768px) {
+
+    .quote-box {
+        overflow: visible;
+        display: flex;
+        align-items: center;
+    }
+    .quote-box__image {
+        flex: 1 1 50%;
+        position: static;
+        width: auto;
+    }
+    .quote-box__body {
+        flex: 1 1 50%;
+        margin-left: -320px;
+        align-self: center;
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .quote-box__image {
+        flex: 1 1 40%;
+    }
+    .quote-box__body {
+        flex: 1 1 60%;
+        margin-left: -220px;
+        padding: 35px;
+    }
+}
+
+@media screen and (min-width: 1180px) {
+    .quote-box {
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+}

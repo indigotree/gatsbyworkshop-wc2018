@@ -9,12 +9,12 @@ module.exports = {
         {
             resolve: `gatsby-source-wordpress`,
             options: {
-                baseUrl: `gatsbyworkshop.wpengine.com`,
-                protocol: `https`,
+                baseUrl: process.env.WP_API,
+                protocol: process.env.WP_API_PROTOCOL || `https`,
                 hostingWPCOM: false,
                 useACF: true,
                 searchAndReplaceContentUrls: {
-                    sourceUrl: `https://gatsbyworkshop.wpengine.com(?!(wp-content))`,
+                    sourceUrl: `${process.env.WP_API_PROTOCOL || `https`}://${process.env.WP_API}/(?!(wp-content))`,
                     replacementUrl: `/`
                 }
             }

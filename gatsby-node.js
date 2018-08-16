@@ -12,7 +12,20 @@ const queryWordPressGatsbyConfig = `
   }
 `
 
-// step 1. add graphql query for wp pages here
+const queryWordPressPages = `
+  {
+    allWordpressPage (filter: { status: { eq : "publish" } }) {
+      edges {
+        node {
+          id
+          wordpress_id
+          slug
+          template
+        }
+      }
+    }
+  }
+`
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
 
@@ -32,10 +45,32 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
             .then(config => {
                 
-                // step 2. query for wordpress pages, and then loop over them
-                // when adding step 4, please remove the resolve(); function below.
-                
-                resolve();
+                return graphql(queryWordPressPages).then(r => {
+                    if (r.errors) {
+                        console.log(r.errors);
+                        reject(r.errors);
+                    }
+                    _.each(r.data.allWordpressPage.edges, edge => {
+                        createPage({
+                            path: edge.node.wordpress_id === config.front_page ? '/' : edge.node.slug,
+                            component: (
+                              () => {
+                                  if (edge.node.wordpress_id === config.front_page) {
+                                      return slash(path.resolve(`./src/templates/home.js`));
+                                  }
+                                  return slash(path.resolve(`./src/templates/page.js`));
+                              }
+                            )(),
+                            context: {
+                                id: edge.node.id,
+                                wordpress_id: edge.node.wordpress_id
+                            }
+                        });
+                    });
+                })
+                .then(r => {
+                    resolve();
+                });
 
             });
 
